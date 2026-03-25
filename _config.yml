@@ -1,0 +1,29 @@
+remote_theme: mmistakes/minimal-mistakes
+
+title: PingReply
+subtitle: Auto-reply to missed calls
+name: NeatBuilds
+email: neatbuilds.apps@gmail.com
+description: >-
+  PingReply automatically sends an SMS when you miss a call.
+  Privacy-first, works offline, no accounts needed.
+url: "https://neatbuilds.github.io"
+baseurl: "/ping-reply"
+
+plugins:
+  - jekyll-remote-theme
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "single"
+
+footer:
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope"
+      url: "mailto:neatbuilds.apps@gmail.com"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/neatbuilds"
