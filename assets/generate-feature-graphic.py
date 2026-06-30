@@ -1,127 +1,252 @@
 #!/usr/bin/env python3
 """
 Generate PingReply feature graphic (1024x500) for Google Play Store
+Improved version with better visual design
 """
 
 try:
-    from PIL import Image, ImageDraw, ImageFont, ImageFilter
+    from PIL import Image, ImageDraw, ImageFont
 except ImportError:
     print("ERROR: Pillow not installed. Install with: pip install pillow")
     exit(1)
 
-# Create image
+# Create image with better quality
 width, height = 1024, 500
 img = Image.new('RGB', (width, height), color='#0B0B0F')
 draw = ImageDraw.Draw(img, 'RGBA')
 
-# Gradient background (approximated with rectangles)
+# ============================================================
+# BACKGROUND GRADIENT
+# ============================================================
+# Gradient from dark blue-grey to darker blue-grey
 for y in range(height):
     ratio = y / height
-    r = int(11 + (27 - 11) * ratio)
-    g = int(11 + (27 - 11) * ratio)
-    b = int(15 + (37 - 15) * ratio)
-    draw.line([(0, y), (width, y)], fill=(r, g, b, 255))
+    # Interpolate from #0B0B0F to #1B1B25
+    r = int(0x0B + (0x1B - 0x0B) * ratio)
+    g = int(0x0B + (0x1B - 0x0B) * ratio)
+    b = int(0x0F + (0x25 - 0x0F) * ratio)
+    draw.line([(0, y), (width, y)], fill=(r, g, b))
 
-# Add gradient mesh (circles with transparency)
-# Orange glow (top-left)
-for radius in range(300, 0, 20):
-    alpha = int(30 * (1 - radius / 300))
+# ============================================================
+# DECORATIVE GLOWS
+# ============================================================
+# Orange glow (top left)
+glow_x, glow_y = -100, -100
+for r in range(400, 50, 15):
+    alpha = int(40 * (1 - (r - 50) / 350))
     color = (255, 107, 43, alpha)
-    draw.ellipse([(-200, -200), (-200 + 2*radius, -200 + 2*radius)], fill=color)
+    draw.ellipse(
+        [(glow_x - r, glow_y - r), (glow_x + r, glow_y + r)],
+        fill=color
+    )
 
-# Purple glow (bottom-right)
-for radius in range(250, 0, 20):
-    alpha = int(20 * (1 - radius / 250))
+# Purple glow (bottom right)
+glow_x2, glow_y2 = width + 100, height + 50
+for r in range(350, 50, 15):
+    alpha = int(35 * (1 - (r - 50) / 300))
     color = (99, 102, 241, alpha)
-    draw.ellipse([(width - 200, height - 150), (width - 200 + 2*radius, height - 150 + 2*radius)], fill=color)
+    draw.ellipse(
+        [(glow_x2 - r, glow_y2 - r), (glow_x2 + r, glow_y2 + r)],
+        fill=color
+    )
 
-# Try to load fonts (fallback to default if not available)
+# ============================================================
+# FONTS
+# ============================================================
 try:
-    title_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 56)
-    text_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 18)
-    feature_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 14)
+    # Try system fonts
+    bold_font_64 = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 64)
+    bold_font_48 = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 48)
+    regular_font_20 = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
+    regular_font_16 = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 16)
 except:
-    title_font = ImageFont.load_default()
-    text_font = ImageFont.load_default()
-    feature_font = ImageFont.load_default()
+    # Fallback to default
+    bold_font_64 = ImageFont.load_default()
+    bold_font_48 = ImageFont.load_default()
+    regular_font_20 = ImageFont.load_default()
+    regular_font_16 = ImageFont.load_default()
 
-# Left section - text
-left_x = 60
-top_y = 80
+# ============================================================
+# LEFT SECTION - TEXT CONTENT
+# ============================================================
+left_margin = 60
+text_top = 60
 
 # Logo badge
-logo_size = 56
-logo_x = left_x
-logo_y = top_y
-draw.rectangle([logo_x, logo_y, logo_x + logo_size, logo_y + logo_size],
-               fill=(255, 107, 43, 255), outline=(255, 155, 92, 200))
-draw.text((logo_x + 14, logo_y + 10), "PR", font=title_font, fill=(255, 255, 255, 255))
+badge_size = 60
+badge_x = left_margin
+badge_y = text_top
 
-# Title
-title_y = top_y + logo_size + 20
-draw.text((left_x, title_y), "Never miss a", font=title_font, fill=(238, 238, 240, 255))
-draw.text((left_x, title_y + 50), "chance to reply", font=title_font, fill=(255, 107, 43, 255))
+# Draw orange badge
+draw.rounded_rectangle(
+    [(badge_x, badge_y), (badge_x + badge_size, badge_y + badge_size)],
+    radius=12,
+    fill=(255, 107, 43, 255)
+)
 
-# Subtitle
-subtitle_y = title_y + 110
-draw.text((left_x, subtitle_y), "Automatically respond to missed calls with SMS.",
-         font=text_font, fill=(122, 122, 140, 255))
-draw.text((left_x, subtitle_y + 25), "Privacy-first, offline, no accounts.",
-         font=text_font, fill=(122, 122, 140, 255))
+# "PR" text in badge
+try:
+    pr_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 32)
+except:
+    pr_font = bold_font_48
 
-# Features
-features = [
-    "✓ Privacy first — no data collection",
-    "✓ Works offline — no internet needed",
-    "✓ Fully customizable — your messages"
-]
-feature_y = subtitle_y + 70
-for feature in features:
-    draw.text((left_x, feature_y), feature, font=feature_font, fill=(238, 238, 240, 255))
-    feature_y += 25
+draw.text(
+    (badge_x + 12, badge_y + 10),
+    "PR",
+    font=pr_font,
+    fill=(255, 255, 255, 255)
+)
 
-# Right section - phone mockup
-phone_x = 650
-phone_y = 110
-phone_w = 180
-phone_h = 280
+# ============================================================
+# MAIN HEADLINE
+# ============================================================
+headline_y = text_top + badge_size + 20
+
+# "Never miss a"
+draw.text(
+    (left_margin, headline_y),
+    "Never miss a",
+    font=bold_font_64,
+    fill=(238, 238, 240, 255)
+)
+
+# "chance to reply" (in orange)
+draw.text(
+    (left_margin, headline_y + 60),
+    "chance to reply",
+    font=bold_font_64,
+    fill=(255, 107, 43, 255)
+)
+
+# ============================================================
+# SUBTITLE
+# ============================================================
+subtitle_y = headline_y + 140
+
+draw.text(
+    (left_margin, subtitle_y),
+    "Auto-reply to missed calls with SMS",
+    font=regular_font_20,
+    fill=(122, 122, 140, 255)
+)
+
+draw.text(
+    (left_margin, subtitle_y + 30),
+    "Privacy-first • Offline • No accounts",
+    font=regular_font_20,
+    fill=(122, 122, 140, 255)
+)
+
+# ============================================================
+# RIGHT SECTION - PHONE MOCKUP
+# ============================================================
+phone_x = 670
+phone_y = 80
+phone_w = 220
+phone_h = 340
+
+# Phone outer shadow
+shadow_offset = 3
+draw.rounded_rectangle(
+    [(phone_x + shadow_offset, phone_y + shadow_offset),
+     (phone_x + phone_w + shadow_offset, phone_y + phone_h + shadow_offset)],
+    radius=20,
+    fill=(0, 0, 0, 100)
+)
 
 # Phone body
-draw.rounded_rectangle([phone_x, phone_y, phone_x + phone_w, phone_y + phone_h],
-                       radius=16, fill=(19, 19, 26, 255), outline=(255, 255, 255, 30))
+draw.rounded_rectangle(
+    [(phone_x, phone_y), (phone_x + phone_w, phone_y + phone_h)],
+    radius=20,
+    fill=(19, 19, 26, 255),
+    outline=(255, 255, 255, 50),
+    width=2
+)
 
-# Notch
-notch_w = 80
-notch_x = phone_x + (phone_w - notch_w) // 2
-draw.rounded_rectangle([notch_x, phone_y, notch_x + notch_w, phone_y + 12],
-                       radius=8, fill=(11, 11, 15, 255))
+# Notch/status bar
+notch_h = 28
+draw.rectangle(
+    [(phone_x, phone_y), (phone_x + phone_w, phone_y + notch_h)],
+    fill=(11, 11, 15, 255)
+)
 
-# Screen
-screen_x = phone_x + 8
-screen_y = phone_y + 20
-screen_w = phone_w - 16
-screen_h = phone_h - 28
-draw.rounded_rectangle([screen_x, screen_y, screen_x + screen_w, screen_y + screen_h],
-                       radius=12, fill=(27, 27, 37, 255))
+# Screen area
+screen_x = phone_x + 12
+screen_y = phone_y + notch_h + 8
+screen_w = phone_w - 24
+screen_h = phone_h - notch_h - 20
 
-# Phone content
-draw.text((screen_x + 20, screen_y + 40), "📱", font=ImageFont.load_default())
-draw.text((screen_x + 15, screen_y + 80), "Service", font=feature_font, fill=(238, 238, 240, 255))
-draw.text((screen_x + 20, screen_y + 100), "Active", font=feature_font, fill=(238, 238, 240, 255))
-draw.text((screen_x + 10, screen_y + 130), "Auto-replying", font=feature_font, fill=(122, 122, 140, 200))
-draw.text((screen_x + 15, screen_y + 145), "to calls", font=feature_font, fill=(122, 122, 140, 200))
+draw.rounded_rectangle(
+    [(screen_x, screen_y), (screen_x + screen_w, screen_y + screen_h)],
+    radius=12,
+    fill=(27, 27, 37, 255)
+)
 
-# Button on phone
-btn_h = 20
-btn_x = screen_x + (screen_w - 80) // 2
-btn_y = screen_y + screen_h - 40
-draw.rounded_rectangle([btn_x, btn_y, btn_x + 80, btn_y + btn_h],
-                       radius=6, fill=(255, 107, 43, 255))
-draw.text((btn_x + 20, btn_y + 2), "Get Free", font=feature_font, fill=(255, 255, 255, 255))
+# Phone content - icon
+icon_y = screen_y + 40
+draw.text(
+    (screen_x + screen_w // 2 - 20, icon_y),
+    "📱",
+    font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 40) if 'ImageFont' else regular_font_20,
+    fill=(255, 255, 255, 255)
+)
 
-# Save
+# Phone content - "Service Active" text
+text_y = icon_y + 50
+draw.text(
+    (screen_x + 20, text_y),
+    "Service",
+    font=regular_font_16,
+    fill=(238, 238, 240, 255)
+)
+
+draw.text(
+    (screen_x + 20, text_y + 28),
+    "Active",
+    font=regular_font_16,
+    fill=(238, 238, 240, 255)
+)
+
+draw.text(
+    (screen_x + 20, text_y + 60),
+    "Auto-replying",
+    font=regular_font_16,
+    fill=(122, 122, 140, 200)
+)
+
+draw.text(
+    (screen_x + 20, text_y + 82),
+    "to calls",
+    font=regular_font_16,
+    fill=(122, 122, 140, 200)
+)
+
+# CTA Button on phone
+btn_w = 90
+btn_h = 32
+btn_x = screen_x + (screen_w - btn_w) // 2
+btn_y = screen_y + screen_h - 50
+
+draw.rounded_rectangle(
+    [(btn_x, btn_y), (btn_x + btn_w, btn_y + btn_h)],
+    radius=8,
+    fill=(255, 107, 43, 255)
+)
+
+draw.text(
+    (btn_x + 15, btn_y + 6),
+    "Get Free",
+    font=regular_font_16,
+    fill=(255, 255, 255, 255)
+)
+
+# ============================================================
+# SAVE IMAGE
+# ============================================================
 output_path = '/home/ricardo/Homespace/1_Projects/ping-reply/assets/feature-graphic.png'
-img.save(output_path, 'PNG')
+img.save(output_path, 'PNG', quality=95)
+
 print(f"✓ Feature graphic created: {output_path}")
-print(f"  Size: 1024×500 (Play Store requirement)")
-print(f"  Ready for upload to Google Play Console!")
+print(f"  Dimensions: 1024×500 (Play Store requirement)")
+print(f"  Design: Modern dark theme with orange accent")
+print(f"  Ready for Google Play Console upload!")
