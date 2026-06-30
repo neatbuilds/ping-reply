@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Protection Notice — PingReply</title>
+  <meta name="description" content="PingReply Data Protection Notice. Learn how we handle your data — spoiler: we don't collect any." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:        #0B0B0F;
+      --surface:   #13131A;
+      --elevated:  #1B1B25;
+      --border:    rgba(255,255,255,0.07);
+      --text:      #EEEEF0;
+      --muted:     #7A7A8C;
+      --accent:    #FF6B2B;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-top: 40px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 12px;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11,11,15,0.82);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+
+    .nav-content {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .nav-logo-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent), #FF9A5C);
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .nav-link:hover {
+      color: var(--text);
+    }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    em {
+      font-style: italic;
+      color: var(--text);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--surface);
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    code {
+      background-color: var(--surface);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: var(--accent);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: #FF7D42;
+    }
+
+    .footer {
+      background-color: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .footer-content {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .footer-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      margin: 0 12px;
+      transition: color 0.2s;
+    }
+    .footer-link:hover {
+      color: var(--text);
+    }
+
+    .footer-text {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="nav">
+    <div class="nav-content">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-badge">PR</div>
+        <span>PingReply</span>
+      </a>
+      <a href="/" class="nav-link">← Back to app</a>
+    </div>
+  </header>
+
+  <main>
+
+    <h1>Data Protection Notice</h1>
+    <p><strong>Effective Date:</strong> March 25, 2026</p>
+
+    <p>NeatBuilds ("we", "us" or "our") places the highest value on protecting the personal data of our users. This Data Protection Notice explains how we handle your data when you use our mobile application PingReply ("Application").</p>
+
+    <p>We process your personal data in accordance with all applicable laws. The European Union General Data Protection Regulation (EU 2016/679, "GDPR") is the primary data protection legislation applicable to this Application.</p>
+
+    <p><strong>PingReply is built with a privacy-first approach. The Application runs entirely on your device, collects no personal data, and requires no internet connection to function.</strong></p>
+
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:40px 0;">
+
+    <h2>Data Controller</h2>
+
+    <p>We are the controller of your personal data. Our contact information:</p>
+
+    <ul style="color:var(--muted);line-height:1.8;">
+      <li><strong style="color:var(--text);">Developer:</strong> NeatBuilds</li>
+      <li><strong style="color:var(--text);">Email:</strong> neatbuilds.apps@gmail.com</li>
+    </ul>
+
+    <p>Use the above contact information if you have any questions or requests related to your personal data.</p>
+
+    <h2>How the Application Works</h2>
+
+    <p>PingReply automatically sends a pre-written SMS message when you miss a phone call. The Application detects missed calls on your device and sends your custom text message to the caller's number. <strong>All processing happens locally on your device.</strong></p>
+
+    <p>The Application does not require registration, does not create user accounts, and does not connect to any servers. <strong>No personal data is transmitted from your device at any time during the normal operation of the Application.</strong></p>
+
+    <h2>Permissions and Why They Are Needed</h2>
+
+    <p>The Application requires access to the following device features. Each is used strictly for the Application's core purpose and nothing else.</p>
+
+    <table>
+      <tr>
+        <th>Permission</th>
+        <th>Why it is needed</th>
+      </tr>
+      <tr>
+        <td><code>READ_PHONE_STATE</code></td>
+        <td>To detect when an incoming call is missed by monitoring call state changes from ringing to idle.</td>
+      </tr>
+      <tr>
+        <td><code>READ_CALL_LOG</code></td>
+        <td>Required by Android 9 and above to receive the caller's phone number when a call state change occurs.</td>
+      </tr>
+      <tr>
+        <td><code>SEND_SMS</code></td>
+        <td>To send the auto-reply text message to the caller's number after a missed call is detected.</td>
+      </tr>
+      <tr>
+        <td><code>READ_CONTACTS</code></td>
+        <td>To display contact names in the exclusion list. No contact data is stored or transmitted.</td>
+      </tr>
+      <tr>
+        <td><code>POST_NOTIFICATIONS</code></td>
+        <td>To show a persistent notification indicating the service is active (required by Android 13+).</td>
+      </tr>
+    </table>
+
+    <p><strong>The Application does not use the INTERNET permission.</strong> No data obtained through the above permissions is collected, stored on any server, or transmitted anywhere.</p>
+
+    <h2>Personal Data We Collect and Process</h2>
+
+    <p><strong>The Application does not collect or process personal data.</strong> No user accounts exist, no registration is required, and no data is transmitted from your device.</p>
+
+    <p>The only data stored locally on your device is:</p>
+
+    <ul style="color:var(--muted);line-height:1.8;">
+      <li>Your auto-reply message text</li>
+      <li>Your on/off toggle and service preferences</li>
+      <li>Excluded phone numbers list (numbers that should not receive auto-replies)</li>
+      <li>History of missed calls and sent replies</li>
+      <li>Daily and monthly SMS usage counters</li>
+    </ul>
+
+    <p><strong>This data is stored exclusively on your device, is not accessible to us, and is permanently deleted when you uninstall the Application.</strong></p>
+
+    <h2>Disclosures and International Transfers</h2>
+
+    <p>We do not disclose your personal data to any third parties because no personal data is collected by the Application. No international data transfers occur.</p>
+
+    <h2>Third-Party Services</h2>
+
+    <p>The Application uses no third-party services, SDKs, analytics tools, advertising networks, or crash reporting frameworks.</p>
+
+    <p><strong>Note:</strong> The Google Play Store may collect its own data about installations and usage. This is governed by <a href="https://policies.google.com/privacy">Google's Privacy Policy</a> and is not controlled by us.</p>
+
+    <h2>Cookies and Tracking</h2>
+
+    <p>The Application does not use cookies or any tracking technologies.</p>
+
+    <h2>Children's Privacy</h2>
+
+    <p>The Application does not collect personal information from anyone, including children under 13. The Application can be used on a device managed by parental controls.</p>
+
+    <h2>Your Rights</h2>
+
+    <p>As the Application does not collect or process personal data, the standard data subject rights (access, rectification, erasure, restriction, portability, objection) do not apply in practice. However, should you have any concerns, you have the right to contact us using the information provided above.</p>
+
+    <p>You also have the right to lodge a complaint with your local supervisory authority.</p>
+
+    <h2>Retention Period</h2>
+
+    <p><strong>No personal data is retained by us, as no personal data is collected.</strong> Local data stored on your device is permanently deleted when you uninstall the Application or clear its data through Android settings.</p>
+
+    <h2>Security</h2>
+
+    <p>As the Application operates entirely on-device with no data transmission or server-side storage, the security of your data is maintained by the security features of your Android device and operating system.</p>
+
+    <h2>Changes to This Notice</h2>
+
+    <p>We reserve the right to update this Notice at any time. Changes will be reflected by updating the "Effective Date" above. Since the Application has no internet connection, we cannot notify you in-app. <strong>Please check this page periodically.</strong></p>
+
+    <p>Continued use of the Application after changes constitutes acceptance of the revised Notice.</p>
+
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:40px 0;">
+
+    <p style="text-align:center;font-size:12px;color:var(--muted);">© 2026 NeatBuilds. All rights reserved. — neatbuilds.apps@gmail.com</p>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <a href="/" class="footer-link">Home</a>
+        <span style="color:var(--border);">•</span>
+        <a href="https://neatbuilds.github.io" class="footer-link">Portfolio</a>
+        <span style="color:var(--border);">•</span>
+        <a href="mailto:neatbuilds.apps@gmail.com" class="footer-link">Contact</a>
+      </div>
+      <p class="footer-text">PingReply — Privacy-first SMS auto-reply for missed calls.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
