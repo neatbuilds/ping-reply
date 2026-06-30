@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PingReply Feature Graphic</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1024px;
+      height: 500px;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0B0B0F 0%, #1B1B25 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Gradient mesh background */
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(255,107,43,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .container::after {
+      content: '';
+      position: absolute;
+      bottom: -150px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(99,102,241,0.10) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 2;
+      gap: 60px;
+    }
+
+    .text-section {
+      flex: 1;
+      max-width: 480px;
+    }
+
+    .logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #FF6B2B, #FF9A5C);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 24px;
+      box-shadow: 0 0 24px rgba(255,107,43,0.25);
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 56px;
+      font-weight: 800;
+      color: #EEEEF0;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .accent {
+      background: linear-gradient(90deg, #FF6B2B, #FFB347);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p {
+      font-size: 18px;
+      color: #7A7A8C;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #EEEEF0;
+      font-weight: 500;
+    }
+
+    .feature::before {
+      content: '✓';
+      width: 24px;
+      height: 24px;
+      background: rgba(255,107,43,0.15);
+      border: 1px solid rgba(255,107,43,0.3);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FF6B2B;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .visual-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-width: 280px;
+      height: 100%;
+    }
+
+    /* Phone mockup */
+    .phone {
+      width: 180px;
+      height: 360px;
+      background: #13131A;
+      border-radius: 32px;
+      padding: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(255,107,43,0.15);
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phone::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 24px;
+      background: #0B0B0F;
+      border-radius: 0 0 20px 20px;
+      z-index: 10;
+    }
+
+    .phone-screen {
+      flex: 1;
+      background: linear-gradient(180deg, #1B1B25 0%, #13131A 100%);
+      border-radius: 24px;
+      margin-top: 8px;
+      padding: 28px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .phone-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .phone-text {
+      font-size: 11px;
+      color: #7A7A8C;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+
+    .phone-text strong {
+      color: #FF6B2B;
+      font-weight: 700;
+    }
+
+    .phone-button {
+      width: 80%;
+      height: 20px;
+      background: linear-gradient(135deg, #FF6B2B, #FF9A5C);
+      border-radius: 8px;
+      font-size: 9px;
+      color: #fff;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Optional: Floating icons */
+    .floating-icon {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0.3;
+    }
+
+    .icon-1 { top: 40px; right: 60px; animation: float 6s ease-in-out infinite; }
+    .icon-2 { bottom: 60px; left: 80px; animation: float 5s ease-in-out infinite 1s; }
+    .icon-3 { top: 120px; left: 40px; animation: float 7s ease-in-out infinite 0.5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @media (max-width: 1024px) {
+      .container { padding: 40px; }
+      h1 { font-size: 44px; }
+      p { font-size: 16px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="floating-icon icon-1">🔒</div>
+    <div class="floating-icon icon-2">📵</div>
+    <div class="floating-icon icon-3">💬</div>
+
+    <div class="content">
+      <div class="text-section">
+        <div class="logo">PR</div>
+        <h1>Never miss a <span class="accent">chance to reply</span></h1>
+        <p>Automatically respond to missed calls with SMS. Privacy-first, offline, no accounts.</p>
+
+        <div class="features">
+          <div class="feature">Privacy first — no data collection</div>
+          <div class="feature">Works offline — no internet needed</div>
+          <div class="feature">Fully customizable — your messages</div>
+        </div>
+      </div>
+
+      <div class="visual-section">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-icon">📱</div>
+            <div class="phone-text">
+              <strong>Service Active</strong><br>
+              Auto-replying to<br>
+              missed calls
+            </div>
+            <div class="phone-button">Get it Free</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
